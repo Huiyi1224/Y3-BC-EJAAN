@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Y3 华文 APR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=KaiTi&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Comic+Sans+MS&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue-theme: #E3F2FD;
+  --pink-theme: #FCE4EC;
+  --purple-theme: #F3E5F5;
+  --green-theme: #E8F5E9;
+  --orange-theme: #FFF3E0;
+}
+body {
+  font-family: 'KaiTi', serif;
+  background-color: #f7fafc;
+  margin: 0;
+  padding: 0;
+}
+.flashcard-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 15px;
+  padding: 10px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+@media (max-width: 600px) {
+  .flashcard-container {
+    grid-template-columns: 1fr;
+    padding: 5px;
+  }
+}
+.card-group {
+  padding: 15px;
+  border-radius: 12px;
+  display: none;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.group-1 { background-color: var(--blue-theme); }
+.group-2 { background-color: var(--pink-theme); }
+.group-3 { background-color: var(--purple-theme); }
+.group-4 { background-color: var(--green-theme); }
+.card {
+  width: 100%;
+  height: 180px;
+  margin: 10px auto;
+  perspective: 1000px;
+  cursor: pointer;
+}
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: white;
+}
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 8px;
+  background: white;
+  font-size: 20px;
+  word-wrap: break-word;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.card-front {
+  font-family: 'Comic Sans MS', cursive;
+  color: #333;
+}
+.card-back {
+  transform: rotateY(180deg);
+  font-family: 'KaiTi', serif;
+  color: #333;
+  font-size: 16px;
+  line-height: 1.4;
+}
+.group-title {
+  font-weight: bold;
+  padding: 8px 0;
+  margin-bottom: 10px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  font-size: 28px;
+  font-family: 'KaiTi', serif;
+  text-align: center;
+}
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 15px 0;
+  padding: 0 10px;
+}
+.button-container button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  color: black;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: 'Comic Sans MS', cursive;
+  transition: opacity 0.3s ease;
+  flex-grow: 1;
+  max-width: 120px;
+}
+.button-container button.group-1-btn {
+  background-color: var(--blue-theme);
+}
+.button-container button.group-2-btn {
+  background-color: var(--pink-theme);
+}
+.button-container button.group-3-btn {
+  background-color: var(--purple-theme);
+}
+.button-container button.group-4-btn {
+  background-color: var(--green-theme);
+}
+.button-container button:hover {
+  opacity: 0.8;
+}
+.instruction {
+  text-align: center;
+  margin: 10px 0;
+  color: #666;
+  font-size: 18px;
+  font-family: 'KaiTi', serif;
+  padding: 0 10px;
+}
+.header {
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 15px 0;
+  text-align: center;
+}
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+.meaning {
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+  font-style: italic;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Y3 华文 APR</h1>
+  <p class="instruction">点击卡片翻转并播放华文读音 Click the card to flip and hear pronunciation</p>
+</div>
+<div class="button-container">
+  <button class="group-1-btn" onclick="toggleGroup('group-1')">8-14/4</button>
+  <button class="group-2-btn" onclick="toggleGroup('group-2')">15-21/4</button>
+  <button class="group-3-btn" onclick="toggleGroup('group-3')">22-28/4</button>
+  <button class="group-4-btn" onclick="toggleGroup('group-4')">1-7/5</button>
+</div>
+<div class="flashcard-container">
+  <!-- 8-14/4 -->
+  <section id="group-1" class="card-group group-1">
+    <h2 class="group-title">8-14/4</h2>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">shǒu xiān<br><span class="meaning">最开始</span></div>
+        <div class="card-back">首先<br>First / Pertama</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">zuì hòu<br><span class="meaning">最末尾</span></div>
+        <div class="card-back">最后<br>Finally / Akhirnya</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">jiē xià lái<br><span class="meaning">然后、后面要做的事</span></div>
+        <div class="card-back">接下来<br>Next / Seterusnya</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">jiē zhe<br><span class="meaning">继续做另一件事</span></div>
+        <div class="card-back">接着<br>Then / Kemudian</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">zhī hòu<br><span class="meaning">过了某个时间</span></div>
+        <div class="card-back">之后<br>After that / Selepas itu</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">bù zhòu<br><span class="meaning">做事的顺序</span></div>
+        <div class="card-back">步骤<br>Steps / Langkah-langkah</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">zāi mín<br><span class="meaning">受灾（如火灾、水灾）的人</span></div>
+        <div class="card-back">灾民<br>Disaster victims / Mangsa bencana</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">líng jiàn<br><span class="meaning">机器的小部分（如玩具车的轮子）</span></div>
+        <div class="card-back">零件<br>Parts / Komponen</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">xū<br><span class="meaning">需要</span></div>
+        <div class="card-back">需<br>Need / Memerlukan</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">zēng jiā<br><span class="meaning">变多</span></div>
+        <div class="card-back">增加<br>Increase / Meningkatkan</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15-21/4 -->
+  <section id="group-2" class="card-group group-2">
+    <h2 class="group-title">15-21/4</h2>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">zhèng fǔ<br><span class="meaning">管理国家的领导</span></div>
+        <div class="card-back">政府<br>Government / Kerajaan</div>
+      </div>
+    </div>
+    <!-- 拆分为两个独立卡片 -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">shè zhì<br><span class="meaning">安装、安排</span></div>
+        <div class="card-back">设置<br>Set up / Tetapkan</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">zhí mín<br><span class="meaning">强国控制弱国</span></div>
+        <div class="card-back">殖民<br>Colonize / Menjajah</div>
+      </div>
+    </div>
+    <!-- 其他卡片保持不变 -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">juān zèng<br><span class="meaning">送东西帮助人</span></div>
+        <div class="card-back">捐赠<br>Donate / Menderma</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">rán hòu<br><span class="meaning">接着</span></div>
+        <div class="card-back">然后<br>Then / Kemudian</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">kè bó<br><span class="meaning">说话伤人</span></div>
+        <div class="card-back">刻薄<br>Harsh / Kejam</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">yì rú fǎn zhǎng<br><span class="meaning">超级简单（像翻手掌一样容易）</span></div>
+        <div class="card-back">易如反掌<br>As easy as pie / Semudah ABC</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">rào<br><span class="meaning">转圈（如绕操场跑）</span></div>
+        <div class="card-back">绕<br>Go around / Memutar</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">tí gōng<br><span class="meaning">给东西</span></div>
+        <div class="card-back">提供<br>Provide / Menyediakan</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">tǐ yàn<br><span class="meaning">亲自试试</span></div>
+        <div class="card-back">体验<br>Experience / Pengalaman</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">fán róng<br><span class="meaning">很热闹、有钱（如繁华的城市）</span></div>
+        <div class="card-back">繁荣<br>Prosperous / Makmur</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 22-28/4 -->
+  <section id="group-3" class="card-group group-3">
+    <h2 class="group-title">22-28/4</h2>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">jià<br><span class="meaning">开车（如"驾车"）</span></div>
+        <div class="card-back">驾<br>Drive / Memandu</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">gòu mǎi<br><span class="meaning">买</span></div>
+        <div class="card-back">购买<br>Buy / Membeli</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">bó lǐ<br><span class="meaning">小礼物（客气话）</span></div>
+        <div class="card-back">薄礼<br>Humble gift / Hadiah sederhana</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">bó zhǐ<br><span class="meaning">很薄的纸</span></div>
+        <div class="card-back">薄纸<br>Thin paper / Kertas nipis</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">huò dé<br><span class="meaning">得到</span></div>
+        <div class="card-back">获得<br>Obtain / Memperoleh</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">bò he<br><span class="meaning">凉凉的植物（像口香糖味道）</span></div>
+        <div class="card-back">薄荷<br>Mint / Pudina</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">yòng tú<br><span class="meaning">能用来做什么</span></div>
+        <div class="card-back">用途<br>Use / Kegunaan</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">guǒ gǎn<br><span class="meaning">勇敢</span></div>
+        <div class="card-back">果敢<br>Courageous / Berani</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">xuān chuán<br><span class="meaning">让更多人知道（如广告）</span></div>
+        <div class="card-back">宣传<br>Promote / Promosi</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">kǒu gòng<br><span class="meaning">警察问话时的回答</span></div>
+        <div class="card-back">口供<br>Testimony / Keterangan</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1-7/5 -->
+  <section id="group-4" class="card-group group-4">
+    <h2 class="group-title">1-7/5</h2>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">chén liè<br><span class="meaning">摆出来（如商店展示商品）</span></div>
+        <div class="card-back">陈列<br>Display / Pameran</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">fán zhí<br><span class="meaning">动物生宝宝</span></div>
+        <div class="card-back">繁殖<br>Breed / Pembiakan</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">qī dài<br><span class="meaning">很想等某件事发生</span></div>
+        <div class="card-back">期待<br>Look forward to / Mengharapkan</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">hòu huǐ<br><span class="meaning">做了事后觉得"不该这样"</span></div>
+        <div class="card-back">后悔<br>Regret / Menyesal</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">jiǎn lòu<br><span class="meaning">简单破旧（如旧房子）</span></div>
+        <div class="card-back">简陋<br>Simple / Sederhana</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">jǐn zhāng<br><span class="meaning">害怕、心跳快</span></div>
+        <div class="card-back">紧张<br>Nervous / Gugup</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">hù wài<br><span class="meaning">外面（如公园）</span></div>
+        <div class="card-back">户外<br>Outdoor / Luar rumah</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">shī wàng<br><span class="meaning">想要但没得到，不开心</span></div>
+        <div class="card-back">失望<br>Disappointed / Kecewa</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">shēng qì<br><span class="meaning">发火</span></div>
+        <div class="card-back">生气<br>Angry / Marah</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">xiū kuì<br><span class="meaning">做错事觉得丢脸</span></div>
+        <div class="card-back">羞愧<br>Ashamed / Malu</div>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+// 显示第一组默认
+window.onload = function() {
+  document.getElementById('group-1').style.display = 'block';
+};
+
+// 切换卡片组显示
+function toggleGroup(groupId) {
+  // 隐藏所有组
+  document.querySelectorAll('.card-group').forEach(group => {
+    group.style.display = 'none';
+  });
+  // 显示选中的组
+  const group = document.getElementById(groupId);
+  group.style.display = 'block';
+  
+  // 收起所有翻转的卡片
+  document.querySelectorAll('.card').forEach(card => {
+    card.classList.remove('flipped');
+  });
+}
+
+// 卡片交互功能
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('click', function() {
+    this.classList.toggle('flipped');
+    // 播放中文词语读音
+    const chineseWord = this.querySelector('.card-back').firstChild.textContent.trim();
+    playAudio(chineseWord);
+  });
+});
+
+// 语音播放功能（朗读中文）
+function playAudio(text) {
+  if (window.speechSynthesis) {
+    // 取消当前正在播放的语音
+    window.speechSynthesis.cancel();
+    
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'zh-CN';
+    utterance.rate = 0.9; // 稍微慢一点
+    
+    // 处理移动设备上的自动播放限制
+    const play = () => {
+      window.speechSynthesis.speak(utterance);
+    };
+    
+    // 有些移动设备需要用户交互后才能播放声音
+    if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+      window.speechSynthesis.cancel();
+      setTimeout(play, 100);
+    } else {
+      play();
+    }
+  } else {
+    alert("您的浏览器不支持语音合成功能，请使用Chrome或Edge浏览器");
+  }
+}
+</script>
+</body>
+</html>
